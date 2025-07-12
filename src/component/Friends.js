@@ -8,27 +8,60 @@ function Friend({ person }) {
   );
 }
 
-function Friends() {
-  const [friends, setFriends] = useState([]);
+function Friends({ friends, setFriends }) {
   const [showPopup, setShowPopup] = useState(false);
+  const [friendsName, setFriendsName] = useState("");
+
   const handleAddFriendClick = () => {
     setShowPopup(true);
   };
+
   const closePopup = () => {
     setShowPopup(false);
   };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    const friend = {
+      name: friendsName,
+      image: "https://via.placeholder.com/50",
+    };
+    setFriends([...friends, friend]);
+    setFriendsName("");
+    closePopup();
+  };
   return (
     <div className="Friends">
-      <button onClick={handleAddFriendClick}>Add friends</button>
-      {friends.map((person, index) => (
-        <Friend key={index} person={person} />
-      ))}
+      {!showPopup && (
+        <button className="btn" onClick={handleAddFriendClick}>
+          Add friends
+        </button>
+      )}
+
       {showPopup && (
         <div>
           <div className="popup-overlay" onClick={closePopup}>
             <div className="popup-content" onClick={(e) => e.stopPropagation()}>
-              <h3>Add New Friend</h3>
-              <button onClick={closePopup}>Close</button>
+              <form onSubmit={handleSubmit}>
+                <div className="input-group">
+                  <input
+                    className="btn"
+                    type="text"
+                    value={friendsName}
+                    onChange={(e) => setFriendsName(e.target.value)}
+                    placeholder="Enter a text here!"
+                  />
+                </div>
+
+                <div className="button-group">
+                  <button type="submit" className="btn">
+                    submit
+                  </button>
+                  <button className="btn btn-cancel" onClick={closePopup}>
+                    Close
+                  </button>
+                </div>
+              </form>
             </div>
           </div>
         </div>
@@ -38,3 +71,4 @@ function Friends() {
 }
 
 export default Friends;
+export { Friend };
