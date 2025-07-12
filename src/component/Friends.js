@@ -4,6 +4,7 @@ function Friend({ person }) {
   return (
     <div className="Friend">
       <h2>{person?.name || "Ahmed"}</h2>
+      <p>{person?.owe}</p>
     </div>
   );
 }
@@ -11,7 +12,7 @@ function Friend({ person }) {
 function Friends({ friends, setFriends }) {
   const [showPopup, setShowPopup] = useState(false);
   const [friendsName, setFriendsName] = useState("");
-
+  const [friendsdept, setFriendsDept] = useState(0);
   const handleAddFriendClick = () => {
     setShowPopup(true);
   };
@@ -24,6 +25,7 @@ function Friends({ friends, setFriends }) {
     e.preventDefault();
     const friend = {
       name: friendsName,
+      owe: friendsdept ?? 0,
       image: "https://via.placeholder.com/50",
     };
     setFriends([...friends, friend]);

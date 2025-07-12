@@ -9,9 +9,11 @@ function View() {
         <h1> Eat 'N Split </h1>
         <Friends friends={friends} setFriends={setFriends} />
       </div>
-      {friends.map((person, index) => (
-        <Friend key={index} person={person} />
-      ))}
+      <div className="container">
+        {friends.map((person, index) => (
+          <Friend key={index} person={person} />
+        ))}
+      </div>
     </>
   );
 }
